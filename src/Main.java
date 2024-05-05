@@ -33,12 +33,38 @@ public class Main {
 
         wordleGroup.click();
 
-        List<WebElement> messages = driver.findElements(By.cssSelector("#main span.selectable-text"));
+        List<WebElement> messages = driver.findElements(By.cssSelector(".focusable-list-item"));
 
         for (WebElement element : messages) {
             System.out.println("Bericht: " + element.getText());
-            System.out.println("naam: ");
+            if (!element.findElements(By.cssSelector("div[data-pre-plain-text]")).isEmpty()) {
+                String player;
+                player = getPlayerName(element.findElement(By.cssSelector("div[data-pre-plain-text]")).getAttribute("data-pre-plain-text"));
+                System.out.println("naam: " + player);
+            }
             System.out.println("Score: ");
+            System.out.println("Wordle dag: ");
+            System.out.println("++++++++++++++++++");
+            System.out.println();
+        }
+
+
+
+
+
+    }
+
+    static String getPlayerName(String dataString) {
+        if (dataString.contains("Maarten")) {
+            return "Maarten";
+        } else if (dataString.contains("Jesse")) {
+            return "Jesse";
+        } else if (dataString.contains("Fokko")) {
+            return "Fokko";
+        } else if (dataString.contains("Tobias")) {
+            return "Tobias";
+        } else {
+            return "Onbekende speler";
         }
     }
 }
